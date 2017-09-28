@@ -1,0 +1,129 @@
+[
+  {
+    "name": "Jordan River",
+    "values": [
+      {
+        "year": 1940,
+        "flow": 15 
+      },
+      {
+        "year": 1950,
+        "flow": 15 
+      },
+      {
+        "year": 1960,
+        "flow": 15 
+      },
+      {
+        "year": 1970,
+        "flow": 15 
+      },
+      {
+        "year": 1980,
+        "flow": 6 
+      },
+      {
+        "year": 2000,
+        "flow": 3 
+      },
+      {
+        "year": 2020,
+        "flow": 0 
+      },
+      {
+        "year": 2050,
+        "flow": 3 
+      },
+      {
+        "year": 2100,
+        "flow": 0 
+      }
+    ]
+  },
+  {
+    "name": "Yarmouk River",
+    "values": [
+      {
+        "year": 1940,
+        "flow": 15 
+      },
+      {
+        "year": 1950,
+        "flow": 15 
+      },
+      {
+        "year": 1960,
+        "flow": 15 
+      },
+      {
+        "year": 1970,
+        "flow": 15 
+      },
+      {
+        "year": 1980,
+        "flow": 6 
+      },
+      {
+        "year": 2000,
+        "flow": 6 
+      },
+      {
+        "year": 2010,
+        "flow": 3 
+      },
+      {
+        "year": 2020,
+        "flow": 3 
+      },
+      {
+        "year": 2100,
+        "flow": 0 
+      }
+    ]
+  },
+  {
+    "name": "Zarqa River",
+    "values": [
+      {
+        "year": 1940,
+        "flow": 15 
+      },
+      {
+        "year": 1950,
+        "flow": 15 
+      },
+      {
+        "year": 1960,
+        "flow": 15 
+      },
+      {
+        "year": 1970,
+        "flow": 15 
+      },
+      {
+        "year": 1980,
+        "flow": 6 
+      },
+      {
+        "year": 2000,
+        "flow": 0 
+      },
+      {
+        "year": 2020,
+        "flow": 3 
+      },
+      {
+        "year": 2030,
+        "flow": 6 
+      },
+      {
+        "year": 2050,
+        "flow": 6 
+      },
+      {
+        "year": 2100,
+        "flow": 0 
+      }
+    ]
+  }
+]

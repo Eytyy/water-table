@@ -1,0 +1,44 @@
+$palewhite: rgba(255, 255, 255, 0.3);
+
+#dashboard {
+  position: fixed;
+  right: 60px;
+  bottom: 100px;
+  z-index: 4;
+  width: 30%;
+  background: #000;
+  border: 1px solid $palewhite;
+  padding: 60px 20px;
+  &:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: 1px solid $palewhite;
+    left: -15px;
+    top: -15px;
+  }
+}
+
+
+.dashboard__block {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background: #000;
+}
+
+.dashboard-text {
+  padding-bottom: 80px;
+  margin-bottom: 80px;
+  border-bottom: 1px solid $palewhite;;
+  transition: opacity 200ms ease-in-out;
+}
