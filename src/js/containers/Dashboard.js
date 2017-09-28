@@ -49,9 +49,16 @@ const Dashboard = (props) => {
 		switch(action) {
       case 'toggle-screen':
       case 'intro-ended':
+        render(action, state, opts);
 				toggleMode();
         break;
+      case 'seek-video':
       case 'timer-progress':
+      case 'reset':
+        render(action, state, opts);
+        break;    
+      case 'outro-started':
+        hide();
         render(action, state, opts);
         break;
 			default:

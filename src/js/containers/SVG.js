@@ -58,7 +58,8 @@ const SVG = () => {
     state = {
 			...state,
 			...newState
-		};
+    };
+    // console.log('svg', action);
 		switch(action) {
 			case 'toggle-svg':
 				toggleVisibility(payload);

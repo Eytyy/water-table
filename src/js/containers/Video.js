@@ -1,17 +1,15 @@
-const VideoComponent = (props, onVideoStartedPlaying) => {
+const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEnded) => {
 	
 	// ID
 	const ID = 'video';
 	[1960, 1970, 1980, 1990, 2000, 2020]
 	const config = {
-		'1960': '0',
-		'1970': '1',
-		'1980': '2',
-		'1990': '3',
-		'2000': '4',
-		'2020': '4.4',
-		ticks: 50, // number of frames during fast-forward
-		frames: 10, // number of milliseconds between frames in fast-forward
+		'1960': 40,
+		'1970': 80,
+		'1980': 120,
+		'1990': 160,
+		'2000': 200,
+		'2010': 240,
 	};
 
 	const DOM = {
@@ -20,19 +18,21 @@ const VideoComponent = (props, onVideoStartedPlaying) => {
 	};
 
 	// Template
-	const template = '<video id="map-video" src="./video.mp4" controls preload autoplay   />';
+	const template = '<video id="map-video" src="./video.mp4" preload />';
 	
 	DOM.container = document.getElementById('video');
 	DOM.container.innerHTML = template;
 	
 	DOM.video = document.getElementById('map-video');
 	
-	// LISTEN TO VIDEO EVENTS
 	DOM.video.addEventListener('playing', (e) => {
-		onVideoStartedPlaying(e.target.currentTime);
+		if(e.target.currentTime === 0) {
+			onVideoStartedPlaying(e.target.currentTime);
+		}
 	});
-	DOM.video.addEventListener('progress', () => {
-		// console.log(video.currentTime);
+	
+	DOM.video.addEventListener('ended', () => {
+		onVideoEnded();
 	});
 
 	// Event Handlers
@@ -46,27 +46,43 @@ const VideoComponent = (props, onVideoStartedPlaying) => {
 
 	function seekVideo(point) {
 		// fast forward effect ... not working
-		const ticks = 50;
-		const frms = 10;
-		const to = config[point] * 60;
-		const tdelta = (to - DOM.video.currentTime)/ticks; 
-		const startTime = DOM.video.currentTime;
-		for ( var i = 0; i < ticks; ++i ){
-			(function(j){
-				setTimeout(function() {
-					DOM.video.currentTime = startTime+tdelta * j;
-				}, j * frms);
-		 	})(i);
-		}
+		DOM.video.currentTime = config[point];
+
 		// play if not playing
 		if (DOM.video.ended) {
 			DOM.video.play();
 		}
+
+		resumeAfterSeek();
+	}
+
+	function start() {
+		console.log('start from video');
+		const timeout = () => {
+			return new Promise((resolve, reject) => {
+				setTimeout(() => {
+					toggleVisibility(true);
+					resolve();
+				}, 250);
+			});
+		}
+		timeout().then(() => {
+			DOM.video.play();
+		});
+	}
+
+	function terminate() {
+		DOM.video.currentTime = 0;
+		DOM.video.pause();
 	}
 
 	const update = (action, state, year = 1960) => {
-		
 		switch(action) {
+			case 'reset':
+				DOM.video.currentTime = 0;
+			case 'start':
+				start(state);
+				break;
 			case 'toggle-screen':
 				toggleVisibility(state.activeScreen === ID);
 				break;
@@ -75,6 +91,9 @@ const VideoComponent = (props, onVideoStartedPlaying) => {
 				break;
 			case 'timer-progress':
 				// console.log('video year');
+				break;
+			case 'tour-ended':
+				terminate();
 				break;
 			default:
 				return;

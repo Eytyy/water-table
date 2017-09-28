@@ -4,8 +4,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  font-size: 200px;
-  z-index: 9;
+  z-index: 11;
   transition: opacity 500ms ease-in-out;
-  opacity: 0;
+}
+
+.idle {
+  font-size: 20vh;
+  letter-spacing: 12vh;
 }

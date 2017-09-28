@@ -1,66 +1,89 @@
+import IdleText from '../../data/text/idle';
 
-import Intro from '../../data/text/intro';
-import Outro from '../../data/text/outro';
+const Text = (props) => {
 
-// intro
-// phases
-// outro
-
-const Text = () => {
   let opacityTimeout;
-  const container = document.getElementById('textOverlay');
-  container.style.fontSize = '82px';
-  container.style.lineHeight = '2';
+  let lastClassName =  '';
   
-  function render(content = "") {
+  const { isIdle } = props;
+  const container = document.getElementById('textOverlay');
+
+  const show = () => {
+    container.classList.add('visible');
+  };
+
+  const hide = () => {
+    container.classList.remove('visible');
+  }
+  
+  const updateClasses = (className) => {
+    if (lastClassName) {
+      container.classList.remove(lastClassName);
+    }
+    if (className) {
+      container.classList.add(className);
+      lastClassName = className;
+    }
+  };
+
+  const render = (content, className) => {
     clearTimeout(opacityTimeout);
+    hide();
     
-    container.style.opacity = 0;
+    updateClasses(className);
+
     const timerOpacity = () => {
       return new Promise((resolve, reject) => {
         opacityTimeout = setTimeout(() => {
-          container.innerHTML = content;
+          if (content === '') {
+            container.innerHTML = ''
+          } else {
+            container.appendChild(content);
+          }
           resolve();
         }, 1000);
       })
     };
     
-    timerOpacity().then(() => {
-      container.style.opacity = 1;
+      timerOpacity().then(() => {
+        show();
     });
-
   }
 
-  const playIntroText = ({ introLength }) => {
-    const delay = introLength / Intro.length;
-    let c = 1;
-    render(Intro[0]);
-    const play = setInterval(() => {
-      if (c === Intro.length) {
-        clearInterval(play);
-        return;
-      }
-      render(Intro[c]);
-      c += 1;
-    }, delay);
+  const showIdleText = () => {
+    const frag = document.createDocumentFragment();
+    IdleText.forEach((item, index) => {
+      let child = document.createElement('div');
+      let text = document.createTextNode(item);
+      child.appendChild(text);
+      child.className = `idle-${index}`;
+      frag.appendChild(child);
+    });
+    render(frag, 'idle')
   };
 
-  function update(action, state, opts) {
+  const update = (action, state, opts) => {
     switch(action) {
       case 'intro-started':
-        playIntroText({...state});
+        hide();
         break;
-      case 'intro-ended':
-        render()
-        break;
-      case 'seek-video':
-        console.log('phase')
+      case 'tour-ended':
+        show();
         break;
       default:
         return;
     }
   }
-  render();
+
+  const init = () => {
+    if (isIdle) {
+      container.classList.add('visible');
+      show();
+      showIdleText();
+    }
+  };
+
+  init();
 
   return update;
 };

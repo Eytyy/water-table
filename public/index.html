@@ -8,16 +8,30 @@
   </head>
   <body>
     <div id="app">
+      <!-- fuckery: for keeping track of shit -->
       <div id="debug"></div>
-      <div class="visible" id="video"></div>
-      <div id="animation"></div>
-      <div id="info"></div>
+      <!-- for big texts -->
+      <div id="textOverlay"></div>
+      <!-- try to guess -->
+      <div id="video"></div>
+      <!-- The thing on the right -->
       <div id="dashboard">
         <div class="dashboard__block dashboard-overlay"></div>
         <div class="dashboard__block dashboard-text"></div>
         <div id="dashboard-dataviz" class="dashboard__block dashboard-animation"></div>
       </div>
-      <div id="textOverlay"></div>
+      <!-- Information Svgs -->
+      <div id="info"></div>
+      <!-- Interface messages -->
+      <div id="messages"></div>
+      <!-- Video Timeline -->
+      <div id="timeline">
+        <div class="timeline__rail"></div>
+        <div class="timeline__train">
+          <div class="timeline__train__dot"></div>
+          <div class="timeline__train__text"></div>
+        </div>
+      </div>
     </div>
     <script src="/bundle.js" ></script>
   </body>

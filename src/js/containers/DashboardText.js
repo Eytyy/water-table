@@ -39,9 +39,7 @@ const DashboardText = (props) => {
     return;
   };
 
-  const update = (year, container) => {
-     setTextCycle(year, container);
-  };
+  const update = (year, container) => setTextCycle(year, container);
 
   return update;
 };

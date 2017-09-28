@@ -59,7 +59,7 @@ const AnimationComponent = (props) => {
 			...state,
 			...newState
 		};
-		
+		console.log('animation', action);
 		switch(action) {
 			case 'toggle-screen':
 				toggleVisibility(newState.activeScreen === ID);
