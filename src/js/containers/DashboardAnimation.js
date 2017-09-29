@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import PopulationLayer from '../components/PopulationLayer';
 import RiversLayer from '../components/RiversLayer';
 
-const AnimationComponent = (props) => {
+const DashboardAnimation = (props) => {
 	let ID = 'dataviz';
 	let state = {
 		shouldPlay: false,
@@ -12,7 +12,7 @@ const AnimationComponent = (props) => {
 	const width = 1440 - margin.left - margin.right;
 	const height = 900 - margin.top - margin.bottom;
 	
-	const svg = d3.select('.data__visualization')
+	const svg = d3.select('.dashboard__animation')
 		.append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom)
@@ -25,11 +25,11 @@ const AnimationComponent = (props) => {
 	const Rivers = RiversLayer({ svg, width, height, margin, ...props });
 	
 	function render(year) {
-	 if (state.activeScreen !== ID) return;
+    if (state.activeScreen === ID) return;
 		Population(year, state.activeIndex);
 		Rivers(year, state.activeIndex);
-	}
-
+  }
+  
 	// Update function
 	function update(action, newState, year = 1950) {
 		
@@ -75,7 +75,7 @@ function responsivefy(svg, forceResize) {
 	}
 }
 
-export default AnimationComponent;
+export default DashboardAnimation;
 
 
 

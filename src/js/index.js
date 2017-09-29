@@ -9,7 +9,7 @@ import Dashboard from './containers/Dashboard';
 import SVG from './containers/SVG';
 import Text from './containers/Text';
 import Messages from './containers/Messages';
-import ConfigComp from './containers/ConfigComp';
+// import ConfigComp from './containers/ConfigComp';
 
 /* Initial Declarations */
 
@@ -247,7 +247,7 @@ const VideoComponent = Video(state, onVideoStartedPlaying, resumeAfterSeek, onVi
 const DashboardComponent = Dashboard(state);
 const SVGComponent = SVG(state);
 const TextComponent = Text(state);
-const ConfigComponent = ConfigComp(state);
+// const ConfigComponent = ConfigComp(state);
 
 const reset = () => {
 	updateState('reset', defaultState);
@@ -271,7 +271,7 @@ function render(action, opts) {
 	SVGComponent(action, state, opts)
 	DashboardComponent(action, state, opts)
 	TextComponent(action, state, opts);
-	ConfigComponent(state);
+	// ConfigComponent(state);
 }
 
 

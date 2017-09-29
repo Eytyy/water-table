@@ -1,9 +1,10 @@
-#idle,
-#video,
-#animation,
-#info,
-#dashboard,
-#textOverlay {
+.idle,
+.video,
+.animation,
+.info,
+.dashboard,
+.textOverlay,
+.data {
   opacity: 0;
   transition: opacity 300ms linear;
   background: #000;
@@ -12,10 +13,11 @@
   }
 }
 
-#idle,
-#video,
-#animation,
-#info {
+.idle,
+.video,
+.animation,
+.info,
+.data-viz {
   position: fixed;
   top: 0;
   left: 0;
@@ -23,7 +25,7 @@
   height: calc(100% - 100px);
 }
 
-#debug {
+.debug {
   position: fixed;
   top: 60px;
   right: 60px;

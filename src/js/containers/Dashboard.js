@@ -1,9 +1,9 @@
-import Animation from './Animation';
+import DashboardAnimation from './DashboardAnimation';
 import DashboardText from './DashboardText';
 
 const Dashboard = (props) => {
   const ID = 'dashboard';
-  const AnimationComponent = Animation(props);
+  const DashboardAnimationComponent = DashboardAnimation(props);
   
   let state = {
     visible: false,
@@ -12,12 +12,12 @@ const Dashboard = (props) => {
   const DOM = {
 		container: null,
     text: null,
-    animations: null,
+    animation: null,
   };
     	
-	DOM.container = document.getElementById('dashboard');
-  DOM.text = document.querySelector('.dashboard-text');
-  DOM.animations = document.querySelector('.dashboard-animations');
+	DOM.container = document.querySelector('.dashboard');
+  DOM.text = document.querySelector('.dashboard__text');
+  DOM.animation = document.querySelector('.dashboard__animation');
   
   const DashboardTextComponent = DashboardText(state);
 
@@ -31,7 +31,7 @@ const Dashboard = (props) => {
   
   function render(action, state, opts) {
     DashboardTextComponent(state.currentYear, DOM.text)
-    AnimationComponent(action, state, opts);
+    DashboardAnimationComponent(action, state, opts);
   }
 
   function toggleMode() {
@@ -48,9 +48,11 @@ const Dashboard = (props) => {
     };
 		switch(action) {
       case 'toggle-screen':
-      case 'intro-ended':
-        render(action, state, opts);
 				toggleMode();
+        break;
+      case 'intro-ended':
+				toggleMode();
+        render(action, state, opts);
         break;
       case 'seek-video':
       case 'timer-progress':

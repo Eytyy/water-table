@@ -17,14 +17,14 @@ const SVG = () => {
   };
 
   const template = `
-    <div class="info__screen topography" style="background-image:url('${topography}')"></div>
-    <div class="info__screen info" style="background-image:url('${info}')"></div>
+    <div class="info__screen info__topography" style="background-image:url('${topography}')"></div>
+    <div class="info__screen info__text" style="background-image:url('${info}')"></div>
   `;
   	
-	DOM.container = document.getElementById('info');
+	DOM.container = document.querySelector('.info');
   DOM.container.innerHTML = template;
-  DOM.topography = document.querySelector('.topography');
-  DOM.info = document.querySelector('.info');
+  DOM.topography = document.querySelector('.info__topography');
+  DOM.info = document.querySelector('.info__text');
   
   // refactor for rotary instead of buttons: 0 1 2 off 1 2
   function toggleVisibility(position) {

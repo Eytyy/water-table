@@ -1,5 +1,5 @@
 const ConfigComp = () => {
-  const container = document.getElementById('debug');
+  const container = document.querySelector('.debug');
 
   const template = ({ currentYear, timerSpeed, activeIndex, introLength }) => (`
     <div>Intro Length: ${introLength}</div>

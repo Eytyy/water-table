@@ -18,12 +18,12 @@ const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEn
 	};
 
 	// Template
-	const template = '<video id="map-video" src="./video.mp4" preload />';
+	const template = '<video class="map-video" src="./video.mp4" preload />';
 	
-	DOM.container = document.getElementById('video');
+	DOM.container = document.querySelector('.video');
 	DOM.container.innerHTML = template;
 	
-	DOM.video = document.getElementById('map-video');
+	DOM.video = document.querySelector('.map-video');
 	
 	DOM.video.addEventListener('playing', (e) => {
 		if(e.target.currentTime === 0) {

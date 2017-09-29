@@ -6,7 +6,7 @@ const Text = (props) => {
   let lastClassName =  '';
   
   const { isIdle } = props;
-  const container = document.getElementById('textOverlay');
+  const container = document.querySelector('.textOverlay');
 
   const show = () => {
     container.classList.add('visible');

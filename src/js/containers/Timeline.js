@@ -1,6 +1,6 @@
 const Timeline = (props) => {
   const DOM = {
-    main: document.getElementById('timeline'),
+    main: document.querySelector('.timeline'),
     progress: document.querySelector('.timeline__progress'),
     rail: document.querySelector('.timeline__rail'),
   };

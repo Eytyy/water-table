@@ -1,5 +1,5 @@
 const Messages = () => {
-	const container = document.getElementById('messages');
+	const container = document.querySelector('.messages');
 	let timer;
 
 	const resetTimer = () => {

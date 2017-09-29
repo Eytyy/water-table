@@ -1,6 +1,6 @@
 $palewhite: rgba(255, 255, 255, 0.3);
 
-#dashboard {
+.dashboard {
   position: fixed;
   right: 60px;
   bottom: 100px;
@@ -29,7 +29,7 @@ $palewhite: rgba(255, 255, 255, 0.3);
   z-index: 1;
 }
 
-.dashboard-overlay {
+.dashboard__overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -39,9 +39,20 @@ $palewhite: rgba(255, 255, 255, 0.3);
   background: #000;
 }
 
-.dashboard-text {
+.dashboard__text {
   padding-bottom: 80px;
   margin-bottom: 80px;
   border-bottom: 1px solid $palewhite;;
   transition: opacity 500ms ease-in-out;
+}
+
+.is-full {
+  .dashboard__animation {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    height: 100%;
+  }
 }
