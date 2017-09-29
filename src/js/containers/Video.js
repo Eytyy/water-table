@@ -57,7 +57,6 @@ const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEn
 	}
 
 	function start() {
-		console.log('start from video');
 		const timeout = () => {
 			return new Promise((resolve, reject) => {
 				setTimeout(() => {

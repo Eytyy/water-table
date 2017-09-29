@@ -7,6 +7,11 @@ $palewhite: rgba(255, 255, 255, 0.3);
   width: 100%;
   z-index: 12;
   height: 100px;
+  opacity: 0;
+  transition: opacity 200ms linear;
+  &.visible {
+    opacity: 1;
+  }
 }
 
 .timeline__rail {

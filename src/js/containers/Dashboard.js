@@ -61,6 +61,9 @@ const Dashboard = (props) => {
         hide();
         render(action, state, opts);
         break;
+      case 'intro-started':
+        hide();
+        break;
 			default:
 				return;
 		}

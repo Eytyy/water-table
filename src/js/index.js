@@ -8,6 +8,7 @@ import Timeline from './containers/Timeline';
 import Dashboard from './containers/Dashboard';
 import SVG from './containers/SVG';
 import Text from './containers/Text';
+import Messages from './containers/Messages';
 import ConfigComp from './containers/ConfigComp';
 
 /* Initial Declarations */
@@ -47,7 +48,7 @@ let timer; // timer reference variable
 const phases = [1960, 1970, 1980, 1990, 2000, 2010]; // Video Time Stops
 
 const initSocketio = () => { // Setup Socket.io
-	const ip = '192.168.1.27';
+	const ip = '192.168.1.46';
 	const port = '3000';
 	const socket = io.connect(`http://${ip}:${port}`);
 
@@ -90,10 +91,20 @@ const setState = (newState) => {
 };
 
 const updateState = (action, newState = state, opts = {}) => { // Render Child Components on Update
-	console.log(action);
 	setState(newState);
 	render(action, opts);
+	resetInterfaceMessage();
 };
+const MessageComponent = Messages();
+
+const sendInterfaceMessage = (msg) => {
+	MessageComponent(msg);
+};
+
+const resetInterfaceMessage = () => {
+	MessageComponent('');
+};
+
 /* End Initial Declarations */
 
 
@@ -113,12 +124,15 @@ const onVideoStartedPlaying =() => {
 	});
 };
 
+let introCount;
+
 const startIntroCount = () => {
+	clearInterval(introCount);
 	updateState('intro-started', {
 		isIntroActive: true
 	});
 	return new Promise((resolve, reject) => {
-		setTimeout(() => {
+		introCount = setTimeout(() => {
 			updateState('intro-ended', {});
 			resolve();
 		}, state.introLength);
@@ -143,16 +157,23 @@ let prevUpdateValue = null;
 let nextUpdateValue = 0;
 
 const onSeekVideo = (position) => {
-	if (state.isIntroActive || state.isOutroActive || state.isIdle) {
-		return false;
-	}
-
 	if (lastSeekPosition === position || lastSeekPosition === position - 1 || lastSeekPosition === position + 1) return;
 
 	lastSeekPosition = position;
 	nextUpdateValue = Math.floor(position/3);
 
 	if (nextUpdateValue === prevUpdateValue) return;
+
+	if (state.isIntroActive) {
+		sendInterfaceMessage('wait for intro to finish');
+		return false;
+	} else if (state.isOutroActive) {
+		sendInterfaceMessage('press start to start again');
+		return false;
+	} else if (state.isIdle) {
+		sendInterfaceMessage('press start to start again');
+		return false;
+	}
 
 	prevUpdateValue = nextUpdateValue;
 
@@ -230,13 +251,14 @@ const reset = () => {
 
 const start = () => {
 	if (!state.isIdle) {
-		console.log(reset);
+		stopTimer();
 		reset();
 	}
 	updateState('start', {
 		isIdle: false,
 	});
 };
+
 
 // Render Child Components
 function render(action, opts) {
