@@ -1,4 +1,4 @@
-const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEnded) => {
+const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEnded, onVideoProgress) => {
 	
 	// ID
 	const ID = 'video';
@@ -34,6 +34,10 @@ const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEn
 	DOM.video.addEventListener('ended', () => {
 		onVideoEnded();
 	});
+
+	DOM.video.addEventListener('progress', () => {
+		onVideoProgress(DOM.video.currentTime);
+	})
 
 	// Event Handlers
 	function toggleVisibility(visible) {

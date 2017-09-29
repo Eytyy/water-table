@@ -189,6 +189,10 @@ const resumeAfterSeek = () => {
 	dynamicUpdates();
 };
 
+const onVideoProgress = (time) => {
+	updateState('video-progress', state, time);
+};
+
 const onToggleScreen = () => {
 	if (state.isIdle) {
 		return false;
@@ -239,7 +243,7 @@ const dynamicUpdates = () => {
 
 // Initialize Child Components
 const TimelineComponent = Timeline(state);
-const VideoComponent = Video(state, onVideoStartedPlaying, resumeAfterSeek, onVideoEnded);
+const VideoComponent = Video(state, onVideoStartedPlaying, resumeAfterSeek, onVideoEnded, onVideoProgress);
 const DashboardComponent = Dashboard(state);
 const SVGComponent = SVG(state);
 const TextComponent = Text(state);

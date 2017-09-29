@@ -1,43 +1,71 @@
 const Timeline = (props) => {
   const DOM = {
     main: document.getElementById('timeline'),
-    train: document.querySelector('.timeline__train'),
-    text: document.querySelector('.timeline__train__text'),
+    progress: document.querySelector('.timeline__progress'),
+    rail: document.querySelector('.timeline__rail'),
   };
+
+  const state = {
+    timeLength: 324, // second
+  };
+
+  const stops = [
+    { id: 1, label: 'Early Days', start: 0, end: 40 },
+    { id: 2, label: '1960s', start: 40, end: 80 },
+    { id: 4, label: '1970s', start: 80, end: 120 },
+    { id: 6, label: '1980s', start: 120, end: 160 },
+    { id: 7, label: '1990s', start: 160, end: 200 },
+    { id: 8, label: '2000s', start: 200, end: 240 },
+    { id: 9, label: '2010', start: 240, end: 260 },
+    { id: 10, label: 'The Unkown', start: 300, end: 324 },
+  ];
 
   let introInterval;
   let trainPosition = 0;
-  
-  const stopIntroProgress = () => {
-    trainPosition = 0;
-    DOM.main.classList.remove('visible');
-    clearInterval(introInterval);
+  let passedStopsLength = null;
+
+  const fillPassedStops = (currentTime) => {
+    const passed = stops.filter(({ start }) => {
+      return currentTime > start;
+    });
+    if (passed.length === passedStopsLength) {
+      return;
+    }
+    document.querySelectorAll('.timeline-stop').forEach((el) => el.classList.remove('active'));
+    passed.forEach(({ id }) => {
+      document.getElementById(`stop-${id}`).classList.add('active');
+    });
+    passedStopsLength = passed.length;
   };
 
-  const moveThroughIntro = () => {
-    DOM.main.classList.add('visible');
-    introInterval = setInterval(() => {
-      trainPosition += 1;
-      DOM.train.style.left = `${trainPosition}px`;
-    }, 1000);
+  const moveOnProgress = (currentTime) => {
+    const stop = stops.find(({ start, end }) => {
+      return currentTime >= start && currentTime <= end;
+    });
+    const width = (currentTime/state.timeLength * 100);
+    DOM.progress.style.width = `${width}%`;
+    fillPassedStops(currentTime);
   };
 
   const reset = () => {
-    stopIntroProgress();
-    DOM.train.style.left = '0px';
+    DOM.main.style.opacity = 0;
+    DOM.progress.style.width = '5%';
   };
 
   const update = (action, state, opts) => {
     switch(action) {
+      case 'start':
+        DOM.main.style.opacity = 1;
+        break;
       case 'tour-ended':
       case 'reset':
         reset();
         break;
-      case 'intro-started':
-        moveThroughIntro();
+      case 'video-progress':
+        moveOnProgress(opts);
         break;
-      case 'intro-ended':
-        stopIntroProgress();
+      case 'seek-video':
+        console.log('seek-video');
         break;
       default:
         return;
@@ -45,6 +73,23 @@ const Timeline = (props) => {
     }
   };
 
+  function init() {
+    const frag = document.createDocumentFragment();
+    stops.forEach(({ label, start, id }) => {
+      let el = document.createElement('div');
+      let text = document.createElement('span')
+      el.className = 'timeline-stop';
+      el.id = `stop-${id}`;
+      el.style.left = `${start/state.timeLength * 100}%`;
+      text.innerText = label;
+      text.className = 'timeline-stop__label';
+      el.appendChild(text);
+      frag.appendChild(el);
+    });
+    DOM.rail.appendChild(frag);
+  }
+
+  init();
   return update;
 };
 
