@@ -10,7 +10,7 @@ const AnimationComponent = (props) => {
 	
 	const margin = { top: 0, right: 0, bottom: 0, left: 0 };
 	const width = 1440 - margin.left - margin.right;
-	const height = 900 - margin.top - margin.bottom;
+	const height = 700 - margin.top - margin.bottom;
 	
 	const svg = d3.select('.data__visualization')
 		.append('svg')

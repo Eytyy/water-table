@@ -9,6 +9,8 @@ import Dashboard from './containers/Dashboard';
 import SVG from './containers/SVG';
 import Text from './containers/Text';
 import Messages from './containers/Messages';
+import Data from './containers/Data';
+
 // import ConfigComp from './containers/ConfigComp';
 
 /* Initial Declarations */
@@ -48,7 +50,7 @@ let timer; // timer reference variable
 const phases = [1960, 1970, 1980, 1990, 2000, 2010]; // Video Time Stops
 
 const initSocketio = () => { // Setup Socket.io
-	const ip = '192.168.1.7';
+	const ip = '192.168.1.46';
 	const port = '3000';
 	const socket = io.connect(`http://${ip}:${port}`);
 
@@ -196,7 +198,14 @@ const onVideoProgress = (time) => {
 const onToggleScreen = () => {
 	if (state.isIdle) {
 		return false;
+	} else if (state.isIntroActive) {
+		sendInterfaceMessage('wait for intro to finish');
+		return false;
+	}	else if (state.isOutroActive) {
+		sendInterfaceMessage('press start to start again');
+		return false;
 	}
+	
 	updateState('toggle-screen', {
 		activeScreen: state.activeScreen === 'video' ? 'dataviz' : 'video',
 	});
@@ -245,6 +254,7 @@ const dynamicUpdates = () => {
 const TimelineComponent = Timeline(state);
 const VideoComponent = Video(state, onVideoStartedPlaying, resumeAfterSeek, onVideoEnded, onVideoProgress);
 const DashboardComponent = Dashboard(state);
+const DataComponent = Data(state);
 const SVGComponent = SVG(state);
 const TextComponent = Text(state);
 // const ConfigComponent = ConfigComp(state);
@@ -271,6 +281,7 @@ function render(action, opts) {
 	SVGComponent(action, state, opts)
 	DashboardComponent(action, state, opts)
 	TextComponent(action, state, opts);
+	DataComponent(action, state, opts);
 	// ConfigComponent(state);
 }
 

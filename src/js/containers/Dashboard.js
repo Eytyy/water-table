@@ -36,9 +36,7 @@ const Dashboard = (props) => {
 
   function toggleMode() {
     const mode = state.activeScreen === 'dataviz' ? hide : show;
-    const tout = setTimeout(() => {
-      mode();
-    }, 1000);
+    mode();
   }
 
   const update = (action, newState, opts) => {
