@@ -48,7 +48,7 @@ let timer; // timer reference variable
 const phases = [1960, 1970, 1980, 1990, 2000, 2010]; // Video Time Stops
 
 const initSocketio = () => { // Setup Socket.io
-	const ip = '192.168.1.46';
+	const ip = '192.168.1.7';
 	const port = '3000';
 	const socket = io.connect(`http://${ip}:${port}`);
 

@@ -6,9 +6,13 @@ $palewhite: rgba(255, 255, 255, 0.3);
   bottom: 100px;
   z-index: 40;
   width: 33.333%;
+  height: 47.916666666667%;
+  max-height: 920px;
+  max-width: 400px;
   background: #000;
   border: 1px solid $palewhite;
   padding: 60px 20px;
+  position: fixed;
   &:after {
     content: '';
     position: absolute;
@@ -19,7 +23,6 @@ $palewhite: rgba(255, 255, 255, 0.3);
     top: -15px;
   }
 }
-
 
 .dashboard__block {
   position: relative;
@@ -40,5 +43,5 @@ $palewhite: rgba(255, 255, 255, 0.3);
   padding-bottom: 80px;
   margin-bottom: 80px;
   border-bottom: 1px solid $palewhite;;
-  transition: opacity 200ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
 }
