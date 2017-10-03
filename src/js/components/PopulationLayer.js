@@ -6,7 +6,7 @@ import { interpolateData, constructCirclesData } from '../helpers/helpers.popula
 
 const  PopulationLayer = (props, isdashboard) => {
 	const { currentYear, svg, margin, width, height  } = props;
-	const maxradius = isdashboard ? 5 : 20;
+	const maxradius = isdashboard ? 5 : 35;
 	// Population Scales
 	const xScale = d3.scaleLinear()
 		.domain([1950, 2100])
@@ -26,12 +26,17 @@ const  PopulationLayer = (props, isdashboard) => {
 
 	// UI HELPERS
 	const setCirclePosition = (selection) => {
+		let xminoffset = isdashboard ? -2 : -4;
+		let xmaxoffset = isdashboard ? 2 : 4;
+		let yminoffset = isdashboard ? -2 : -4;
+		let ymaxoffset = isdashboard ? 2 : 4;
+
 		selection
 			.attr('cx', (d, i) => {
-				return width/2 + (i/4 * d3.randomUniform(-2, 2)());
+				return width/2 + (i/4 * d3.randomUniform(xminoffset, xmaxoffset)());
 			})
 			.attr('cy', (d, i) => {
-				return height/2 + (i/4 * d3.randomUniform(-2, 2)());
+				return height/2 + (i/4 * d3.randomUniform(yminoffset, ymaxoffset)());
 			});
 	};
 
@@ -69,7 +74,7 @@ const  PopulationLayer = (props, isdashboard) => {
 			.append('g')
 			.attr('class', 'atom')
 			.attr('transform', () => {
-				const value = isdashboard ? -200 : -400;
+				const value = isdashboard ? -200 : -150;
 				return `translate(0, ${value})`;
 			});
 		
@@ -95,10 +100,9 @@ const  PopulationLayer = (props, isdashboard) => {
 
 		electronEnter
 			.transition()
-			.duration(1000)
-			.call(setCirclePosition)
+			.duration(2000)
 			.ease(d3.easeLinear)
-			.duration(1000)
+			.call(setCirclePosition)
 			.call(setCircleRadius);
 	};
 	render();

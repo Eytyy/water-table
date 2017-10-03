@@ -93,15 +93,21 @@ const SVG = () => {
 			...state,
 			...newState
     };
-    // console.log('svg', action);
 		switch(action) {
 			case 'toggle-svg':
 				toggleVisibility(payload);
+        break;
+      case 'reset':
+        hideSvg1();
+        hideSvg2();
+        hideContainer();
         break;
       case 'toggle-screen':
         hideContainer();
         break;
       case 'outro-started':
+        hideSvg1();
+        hideSvg2();
         hideContainer();
         break;
 			default:

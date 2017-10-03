@@ -64,9 +64,6 @@ const Timeline = (props) => {
       case 'video-progress':
         moveOnProgress(opts);
         break;
-      case 'seek-video':
-        console.log('seek-video');
-        break;
       default:
         return;
         break;

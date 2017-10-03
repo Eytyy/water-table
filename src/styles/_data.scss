@@ -1,5 +1,28 @@
 .data__visualization {
-	height: 100%;
-	svg {
-	}
+	height: calc(100% - 100px);
 }
+
+.data__dashboard {
+	padding: 0 50px;
+	position: absolute;
+	bottom: 100px;
+	left: 0;
+	font-size: 20px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+
+.data__dashboard__item {
+  margin-right: 200px;
+}
+
+.data__dashboard__rivers {
+  display: flex;
+}
+
+.data__dashboard__rivers__item  {
+  margin-right: 80px;
+}
+

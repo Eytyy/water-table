@@ -55,18 +55,17 @@ const Data = (props) => {
 	  	case 'timer-progress':
 	  	case 'reset':
 				render(action, state, opts);
-				break;    
-	  	case 'outro-started':
-				hide();
-				render(action, state, opts);
 				break;
+			case 'reset':
 	  	case 'intro-started':
+			case 'outro-started':
+				render(action, state, opts);
 				hide();
-			break;
-				default:
-					return;
-			}
- 	 };
+				break;
+			default:
+				return;
+	}
+};
 
   return update;
 };

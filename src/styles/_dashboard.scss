@@ -59,25 +59,3 @@ $palewhite: rgba(255, 255, 255, 0.3);
     height: 100%;
   }
 }
-
-.data__dashboard {
-  padding: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 20px;
-  display: flex;
-}
-
-.data__dashboard__item {
-  margin-right: 200px;
-}
-
-.data__dashboard__rivers {
-  display: flex;
-}
-
-.data__dashboard__rivers__item  {
-  margin-right: 80px;
-}
-

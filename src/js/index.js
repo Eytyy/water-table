@@ -60,10 +60,7 @@ const initSocketio = () => { // Setup Socket.io
 
 	socket.on('controller', function(message) {
 		const { event, payload } = message;
-		// if (state.isOutroActive) {
-		// 	sendInterfaceMessage('wait for outro to finish.');
-		// 	return false;
-		// }
+		console.log('socket', event);
 		switch(event) {
 			case 'start':
 				start();
@@ -99,7 +96,7 @@ const setState = (newState) => {
 	};
 };
 
-const updateState = (action, newState = state, opts = {}) => { // Render Child Components on Update
+const updateState = (action, newState = state, opts = {}) => { // Render Child Components on Update\
 	setState(newState);
 	render(action, opts);
 	resetInterfaceMessage();
@@ -246,7 +243,7 @@ let du = 0;
 
 const dynamicUpdates = () => {
 	du++;
-	state.timerSpeed = state.currentYear === 2020 ? 375 : 4000;
+	state.timerSpeed = state.currentYear === 2020 ? 350 : 4000;
 	timer = setInterval(() => {
 		updateState('timer-progress', {
 			startVisualization: true,
@@ -254,13 +251,12 @@ const dynamicUpdates = () => {
 			activeIndex: state.activeIndex + 1,
 		}, state.currentYear);
 
-		if (state.currentYear === 2020 && state.timerSpeed !== 375) {
+		if (state.currentYear === 2020 && state.timerSpeed !== 350) {
 			stopTimer();
-			state.timerSpeed = 375;
+			state.timerSpeed = 350;
 			dynamicUpdates();
 		}
 		if (state.currentYear === 2101) {
-			console.log('trigger-outro');
 			triggerOutroState();
 		}
 	}, state.timerSpeed);

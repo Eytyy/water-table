@@ -10,10 +10,6 @@ io.on('connection', function(client) {
 		console.log(data);
 	});
 
-	client.on('controller', function(data) {
-		client.broadcast.emit('controller', data);
-	});
-
 	client.on('fromTessel', function(data) {
 		client.broadcast.emit('controller', data);
 	});
