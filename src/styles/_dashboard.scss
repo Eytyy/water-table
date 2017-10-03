@@ -2,14 +2,14 @@ $palewhite: rgba(255, 255, 255, 0.3);
 
 .dashboard {
   position: fixed;
-  right: 60px;
-  bottom: 100px;
+  right: 30px;
+  bottom: 150px;
   z-index: 40;
-  width: 33.333%;
-  height: 47.916666666667%;
+  width: 100%;
+  height: 100%;
   min-height: 800px;
-  max-height: 920px;
-  max-width: 400px;
+  max-height: 980px;
+  max-width: 430px;
   background: #000;
   border: 1px solid $palewhite;
   padding: 60px 20px;
@@ -46,6 +46,7 @@ $palewhite: rgba(255, 255, 255, 0.3);
   border-bottom: 1px solid $palewhite;;
   transition: opacity 500ms ease-in-out;
   height: 220px;
+  line-height: 2;
 }
 
 .is-full {
@@ -58,3 +59,25 @@ $palewhite: rgba(255, 255, 255, 0.3);
     height: 100%;
   }
 }
+
+.data__dashboard {
+  padding: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  display: flex;
+}
+
+.data__dashboard__item {
+  margin-right: 200px;
+}
+
+.data__dashboard__rivers {
+  display: flex;
+}
+
+.data__dashboard__rivers__item  {
+  margin-right: 80px;
+}
+

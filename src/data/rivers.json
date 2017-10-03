@@ -4,39 +4,39 @@
     "values": [
       {
         "year": 1940,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1950,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1960,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1970,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1980,
-        "flow": 6 
+        "flow": 1 
       },
       {
         "year": 2000,
-        "flow": 3 
+        "flow": 1.5 
       },
       {
         "year": 2020,
-        "flow": 0 
+        "flow": 2.5 
       },
       {
         "year": 2050,
-        "flow": 3 
+        "flow": 1.5 
       },
       {
         "year": 2100,
-        "flow": 0 
+        "flow": 2.5 
       }
     ]
   },
@@ -45,39 +45,39 @@
     "values": [
       {
         "year": 1940,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1950,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1960,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1970,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1980,
-        "flow": 6 
+        "flow": 1 
       },
       {
         "year": 2000,
-        "flow": 6 
+        "flow": 1 
       },
       {
         "year": 2010,
-        "flow": 3 
+        "flow": 1.5 
       },
       {
         "year": 2020,
-        "flow": 3 
+        "flow": 1.5 
       },
       {
         "year": 2100,
-        "flow": 0 
+        "flow": 2.5 
       }
     ]
   },
@@ -86,43 +86,43 @@
     "values": [
       {
         "year": 1940,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1950,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1960,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1970,
-        "flow": 15 
+        "flow": 0 
       },
       {
         "year": 1980,
-        "flow": 6 
+        "flow": 1 
       },
       {
         "year": 2000,
-        "flow": 0 
+        "flow": 2.5 
       },
       {
         "year": 2020,
-        "flow": 3 
+        "flow": 1.5 
       },
       {
         "year": 2030,
-        "flow": 6 
+        "flow": 1 
       },
       {
         "year": 2050,
-        "flow": 6 
+        "flow": 1 
       },
       {
         "year": 2100,
-        "flow": 0 
+        "flow": 2.5 
       }
     ]
   }

@@ -16,54 +16,27 @@ const Text = (props) => {
     container.classList.remove('visible');
   }
   
-  const updateClasses = (className) => {
-    if (lastClassName) {
-      container.classList.remove(lastClassName);
-    }
-    if (className) {
-      container.classList.add(className);
-      lastClassName = className;
-    }
-  };
+  const template = `
+    <div class="idle-big">
+      <div class="idle-big__l">THIRST</div>
+      <div class="idle-big__r">THIRST</div>
+    </div>
+    <div class="idle-paragraph">
+      <p>You can start this journey<br /> with a click of a button, or<br />you can walk away.</p>
+      <p>In any case the conclusion will be the same, unless things change,</p>
+      <p>and change starts with &gt;&gt;us&lt;&lt;</p>
+    </div>
+    <div class="arrow">&darr;</div>
+  `;
 
-  const render = (content, className) => {
-    clearTimeout(opacityTimeout);
-    hide();
-    
-    updateClasses(className);
-
-    const timerOpacity = () => {
-      return new Promise((resolve, reject) => {
-        opacityTimeout = setTimeout(() => {
-          if (content === '') {
-            container.innerHTML = ''
-          } else {
-            container.appendChild(content);
-          }
-          resolve();
-        }, 1000);
-      })
-    };
-    
-      timerOpacity().then(() => {
-        show();
-    });
+  const render = () => {
+    container.innerHTML = template;
   }
 
-  const showIdleText = () => {
-    const frag = document.createDocumentFragment();
-    IdleText.forEach((item, index) => {
-      let child = document.createElement('div');
-      let text = document.createTextNode(item);
-      child.appendChild(text);
-      child.className = `idle-${index}`;
-      frag.appendChild(child);
-    });
-    render(frag, 'idle')
-  };
 
   const update = (action, state, opts) => {
     switch(action) {
+      case 'start':
       case 'intro-started':
         hide();
         break;
@@ -76,11 +49,9 @@ const Text = (props) => {
   }
 
   const init = () => {
-    if (isIdle) {
-      container.classList.add('visible');
-      show();
-      showIdleText();
-    }
+    container.classList.add('visible');
+    render();
+    show();
   };
 
   init();

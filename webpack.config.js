@@ -45,7 +45,7 @@ module.exports = env => {
 			new ExtractTextPlugin({filename: 'styles/[name].css', disable: false, allChunks: true}),
 			new BrowserSyncPlugin({ 
 				host: 'localhost',
-				port: '9000',
+				port: '9900',
 				proxy: 'http://localhost:3000'
 			})
 		]

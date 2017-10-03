@@ -1,6 +1,15 @@
 .idle,
 .video,
 .animation,
+.dashboard,
+.textOverlay,
+.data {
+  background: #000;
+}
+
+.idle,
+.video,
+.animation,
 .info,
 .dashboard,
 .textOverlay,
@@ -24,6 +33,11 @@
   width: 100%;
   height: calc(100% - 100px);
 }
+
+.video {
+  height: 100%;
+}
+
 
 .debug {
   position: fixed;

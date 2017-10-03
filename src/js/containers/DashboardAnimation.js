@@ -2,15 +2,15 @@ import * as d3 from 'd3';
 import PopulationLayer from '../components/PopulationLayer';
 import RiversLayer from '../components/RiversLayer';
 
-const DashboardAnimation = (props) => {
+const DashboardAnimation = (props, DataInfoComponent) => {
 	let ID = 'dataviz';
 	let state = {
 		shouldPlay: false,
 	};
 	
 	const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-	const width = 1440 - margin.left - margin.right;
-	const height = 900 - margin.top - margin.bottom;
+	const width = 400 - margin.left - margin.right;
+	const height = 600 - margin.top - margin.bottom;
 	
 	const svg = d3.select('.dashboard__animation')
 		.append('svg')
@@ -21,8 +21,8 @@ const DashboardAnimation = (props) => {
 		.attr('transform', `translate(${margin.left}, ${margin.top })`);
 
 	// Render Layers 
-	const Population = PopulationLayer({ svg, width, height, margin, ...props });
-	const Rivers = RiversLayer({ svg, width, height, margin, ...props });
+	const Population = PopulationLayer({ svg, width, height, margin, ...props }, true);
+	const Rivers = RiversLayer({ svg, width, height, margin, ...props }, true);
 	
 	function render(year) {
     if (state.activeScreen === ID) return;

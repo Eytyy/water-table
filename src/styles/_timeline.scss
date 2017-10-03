@@ -2,11 +2,11 @@ $palewhite: rgba(255, 255, 255, 0.3);
 
 .timeline {
   position: fixed;
-  bottom: 0;
+  bottom: 50px;
   left: 0;
   width: 100%;
   z-index: 12;
-  height: 100px;
+  height: 50px;
   opacity: 0;
   transition: opacity 200ms linear;
   &.visible {
@@ -70,6 +70,7 @@ $palewhite: rgba(255, 255, 255, 0.3);
 
 .timeline-stop:before {
   width: 28px;
+  border-radius: 100%;
   background: #000;
 }
 

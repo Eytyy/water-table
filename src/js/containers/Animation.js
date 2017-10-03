@@ -9,8 +9,8 @@ const AnimationComponent = (props) => {
 	};
 	
 	const margin = { top: 0, right: 0, bottom: 0, left: 0 };
-	const width = 1440 - margin.left - margin.right;
-	const height = 700 - margin.top - margin.bottom;
+	const width = 1200 - margin.left - margin.right;
+	const height = 1920 - margin.top - margin.bottom;
 	
 	const svg = d3.select('.data__visualization')
 		.append('svg')
@@ -21,8 +21,8 @@ const AnimationComponent = (props) => {
 		.attr('transform', `translate(${margin.left}, ${margin.top })`);
 
 	// Render Layers 
-	const Population = PopulationLayer({ svg, width, height, margin, ...props });
-	const Rivers = RiversLayer({ svg, width, height, margin, ...props });
+	const Population = PopulationLayer({ svg, width, height, margin, ...props }, false);
+	const Rivers = RiversLayer({ svg, width, height, margin, ...props }, false);
 	
 	function render(year) {
 	 if (state.activeScreen !== ID) return;

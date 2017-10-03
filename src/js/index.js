@@ -10,9 +10,6 @@ import SVG from './containers/SVG';
 import Text from './containers/Text';
 import Messages from './containers/Messages';
 import Data from './containers/Data';
-
-// import ConfigComp from './containers/ConfigComp';
-
 /* Initial Declarations */
 
 const defaultState = {
@@ -50,7 +47,10 @@ let timer; // timer reference variable
 const phases = [1960, 1970, 1980, 1990, 2000, 2010]; // Video Time Stops
 
 const initSocketio = () => { // Setup Socket.io
-	const ip = '192.168.1.46';
+	// const ip = '10.152.98.106';
+	// const ip = '192.168.1.2';
+	// const ip = '192.168.1.4';
+	const ip = '192.168.1.3';
 	const port = '3000';
 	const socket = io.connect(`http://${ip}:${port}`);
 
@@ -60,6 +60,10 @@ const initSocketio = () => { // Setup Socket.io
 
 	socket.on('controller', function(message) {
 		const { event, payload } = message;
+		// if (state.isOutroActive) {
+		// 	sendInterfaceMessage('wait for outro to finish.');
+		// 	return false;
+		// }
 		switch(event) {
 			case 'start':
 				start();
@@ -70,8 +74,11 @@ const initSocketio = () => { // Setup Socket.io
 			case 'toggle-screen':
 				onToggleScreen();
 				break;
-			case 'toggle-svg':
-				onToggleSVG(payload);
+			case 'svg-1':
+				onToggleSVG(1);
+				break;
+			case 'svg-2':
+				onToggleSVG(2);
 				break;
 			case 'resize-dashboard':
 				onResize();
@@ -170,10 +177,10 @@ const onSeekVideo = (position) => {
 		sendInterfaceMessage('wait for intro to finish');
 		return false;
 	} else if (state.isOutroActive) {
-		sendInterfaceMessage('press start to start again');
+		sendInterfaceMessage('wait for outro to finish.');
 		return false;
 	} else if (state.isIdle) {
-		sendInterfaceMessage('press start to start again');
+		sendInterfaceMessage('press start.');
 		return false;
 	}
 
@@ -202,7 +209,7 @@ const onToggleScreen = () => {
 		sendInterfaceMessage('wait for intro to finish');
 		return false;
 	}	else if (state.isOutroActive) {
-		sendInterfaceMessage('press start to start again');
+		sendInterfaceMessage('wait for outro to finish.');
 		return false;
 	}
 	
@@ -216,6 +223,16 @@ const onResize = () => {
 };
 
 const onToggleSVG = (position) => {
+	if (state.isIntroActive) {
+		sendInterfaceMessage('wait for intro to finish');
+		return false;
+	} else if (state.isOutroActive) {
+		sendInterfaceMessage('press start or wait for outro to finish.');
+		return false;
+	} else if (state.isIdle) {
+		sendInterfaceMessage('press start to start again');
+		return false;
+	}
 	updateState('toggle-svg', state, position);
 };
 /* End Event Hanlders */
@@ -228,7 +245,6 @@ const stopTimer = () => {
 let du = 0;
 
 const dynamicUpdates = () => {
-	console.log(`dynamic up callstack ${du}`);
 	du++;
 	state.timerSpeed = state.currentYear === 2020 ? 375 : 4000;
 	timer = setInterval(() => {
@@ -243,7 +259,8 @@ const dynamicUpdates = () => {
 			state.timerSpeed = 375;
 			dynamicUpdates();
 		}
-		if (state.currentYear === 2100) {
+		if (state.currentYear === 2101) {
+			console.log('trigger-outro');
 			triggerOutroState();
 		}
 	}, state.timerSpeed);
@@ -261,18 +278,22 @@ const TextComponent = Text(state);
 
 const reset = () => {
 	updateState('reset', defaultState);
+	start();
 };
 
 const start = () => {
+	// start again
 	if (!state.isIdle) {
+		// if (state.isOutroActive) {
+		// }
 		stopTimer();
 		reset();
+		return;
 	}
 	updateState('start', {
 		isIdle: false,
 	});
 };
-
 
 // Render Child Components
 function render(action, opts) {
@@ -282,7 +303,6 @@ function render(action, opts) {
 	DashboardComponent(action, state, opts)
 	TextComponent(action, state, opts);
 	DataComponent(action, state, opts);
-	// ConfigComponent(state);
 }
 
 

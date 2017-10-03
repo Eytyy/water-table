@@ -27,31 +27,65 @@ const SVG = () => {
   DOM.info = document.querySelector('.info__text');
   
   // refactor for rotary instead of buttons: 0 1 2 off 1 2
+
+  // topography
+
+  function showContainer(position) {
+    DOM.container.classList.add('visible')
+    state.visible = true;
+    lastVisible = position;
+  }
+
+  function hideContainer() {
+    DOM.container.classList.remove('visible')
+    state.visible = false;
+  }
+
+  function showSvg1() {
+    DOM.topography.classList.add('visible');
+  }
+
+  function hideSvg1() {
+    DOM.topography.classList.remove('visible');
+  }
+  //info
+  function showSvg2() {
+    DOM.info.classList.add('visible');
+  }
+
+  function hideSvg2() {
+    DOM.info.classList.remove('visible');
+  }
+
+  let lastVisible;
+
   function toggleVisibility(position) {
     if (state.activeScreen !== 'video') {
       if (state.visible) {
-        state.visible = false;
-        DOM.container.classList.remove('visible')
+        hideContainer();
       }
       return;
     }
-
-    if (!position) {
-      state.visible = false;
-      DOM.container.classList.remove('visible')
-      return;
-    }
-    
-    
     if (position === 1) {
-      DOM.topography.classList.add('visible');
-      DOM.info.classList.remove('visible');
+      if (DOM.topography.classList.contains('visible')) {
+        hideSvg1();
+      } else {
+        showSvg1();
+      }
+      hideSvg2();
     } else if (position === 2) {
-      DOM.topography.classList.remove('visible');
-      DOM.info.classList.add('visible');
+      if (DOM.info.classList.contains('visible')) {
+        hideSvg2();
+      } else {
+        showSvg2();
+      }
+      hideSvg1();
     }
-    DOM.container.classList.add('visible')
-    state.visible = !state.visible;
+    if (DOM.container.classList.contains('visible') && lastVisible === position) {
+      hideContainer();
+    } else {
+      showContainer(position);
+    }
   }
 
   const update = (action, newState, payload) => {
@@ -65,8 +99,11 @@ const SVG = () => {
 				toggleVisibility(payload);
         break;
       case 'toggle-screen':
-				toggleVisibility(payload);
-				break;
+        hideContainer();
+        break;
+      case 'outro-started':
+        hideContainer();
+        break;
 			default:
 				return;
 		}

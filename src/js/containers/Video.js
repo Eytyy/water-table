@@ -75,6 +75,7 @@ const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEn
 	}
 
 	function terminate() {
+		console.log('terminate');
 		DOM.video.currentTime = 0;
 		DOM.video.pause();
 	}
@@ -82,6 +83,7 @@ const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEn
 	const update = (action, state, year = 1960) => {
 		switch(action) {
 			case 'reset':
+				console.log('reset');
 				DOM.video.currentTime = 0;
 			case 'start':
 				start(state);
@@ -91,9 +93,6 @@ const VideoComponent = (props, onVideoStartedPlaying, resumeAfterSeek, onVideoEn
 				break;
 			case 'seek-video':
 				seekVideo(year);
-				break;
-			case 'timer-progress':
-				// console.log('video year');
 				break;
 			case 'tour-ended':
 				terminate();

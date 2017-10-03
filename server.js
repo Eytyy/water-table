@@ -8,17 +8,15 @@ var io = require('socket.io')(server);
 io.on('connection', function(client) {  
 	client.on('join', function(data) {
 		console.log(data);
-		client.emit('message', 'hi from server');
-	});
-
-	client.on('fromTessel', function(data) {
-		client.broadcast.emit('controller', data);
 	});
 
 	client.on('controller', function(data) {
 		client.broadcast.emit('controller', data);
 	});
 
+	client.on('fromTessel', function(data) {
+		client.broadcast.emit('controller', data);
+	});
 });
 
 const port = process.env.PORT || 3000;

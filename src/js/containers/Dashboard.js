@@ -58,6 +58,7 @@ const Dashboard = (props) => {
         render(action, state, opts);
         break;    
       case 'outro-started':
+        console.log('outro');
         hide();
         render(action, state, opts);
         break;

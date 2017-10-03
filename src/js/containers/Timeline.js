@@ -17,7 +17,7 @@ const Timeline = (props) => {
     { id: 7, label: '1990s', start: 160, end: 200 },
     { id: 8, label: '2000s', start: 200, end: 240 },
     { id: 9, label: '2010', start: 240, end: 260 },
-    { id: 10, label: 'The Unkown', start: 300, end: 324 },
+    { id: 10, label: 'Future', start: 300, end: 324 },
   ];
 
   let introInterval;

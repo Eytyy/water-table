@@ -8,7 +8,32 @@
   transition: opacity 500ms ease-in-out;
 }
 
-.idle {
-  font-size: 20vh;
-  letter-spacing: 12vh;
+.idle-big {
+  font-family: 'ZeitungMonoPro-Bold';
+  font-size: 235px;
+}
+.idle-big__l {
+  transform: rotate(90deg) translate(44.4%, 40%);
+}
+.idle-big__r {
+  transform: scaleX(-1) rotate(90deg) translate(20.5%, 40%);
+}  
+.idle-paragraph {
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  bottom: 400px;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  line-height: 1.6;
+  p {
+    margin: 0 0 1.85em;
+  }
+}
+.arrow {
+  font-size: 170px;
+  position: absolute;
+  right: 455px;
+  bottom: 10px;
 }
