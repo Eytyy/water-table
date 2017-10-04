@@ -13,14 +13,14 @@ const DataInfo = () => {
 
 	const riverFlow = (flow) => {
 		let value;
-		if (flow === 3 || (flow > 3 && flow < 4.5)) {
-			value = 'weak';
-		} else if ( flow > 4.5 && flow < 10) {
-			value = 'strong';
-		} else if (flow > 10) {
-			value = 'very strong';
-		} else {
+		if (flow <= 2.5 && flow >= 2 ) {
 			value = 'dry';
+		} else if (flow < 2 && flow >= 1.5) {
+			value = 'weak';
+		} else if (flow < 1.5 && flow >= 1) {
+			value = 'strong';
+		} else if (flow < 1 && flow >= 0) {
+			value = 'max';
 		}
 		return value;
 	};
@@ -64,9 +64,9 @@ const DataInfo = () => {
 		const JordanRiver = interpolateValues(rivers[0].values, year, 'flow');
 		const JordanRiverValue = riverFlow(JordanRiver.flow);
 		const YarmoukRiver = interpolateValues(rivers[1].values, year, 'flow');
-		const YarmoukRiverValue = riverFlow(YarmoukRiver);
+		const YarmoukRiverValue = riverFlow(YarmoukRiver.flow);
 		const ZarqaRiver = interpolateValues(rivers[2].values, year, 'flow');
-		const ZarqaRiverValue = riverFlow(ZarqaRiver);
+		const ZarqaRiverValue = riverFlow(ZarqaRiver.flow);
 
 		DOM.jordan.innerText = `${JordanRiverValue}`;
 		DOM.yarmouk.innerText = `${YarmoukRiverValue}`;

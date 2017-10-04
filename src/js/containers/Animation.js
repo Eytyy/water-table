@@ -24,15 +24,37 @@ const AnimationComponent = (props) => {
 	const Population = PopulationLayer({ svg, width, height, margin, ...props }, false);
 	const Rivers = RiversLayer({ svg, width, height, margin, ...props }, false);
 	
-	function render(year) {
+	function render(year, visibility = undefined) {
 	 if (state.activeScreen !== ID) return;
 		Population(year, state.activeIndex);
 		Rivers(year, state.activeIndex);
 	}
-
+	
+	function changeVisibleLayer(position) {
+		switch(position) {
+			case 'rivers':
+				document.querySelector('.data__dashboard__population').style.display = 'none';
+				document.querySelector('.data__dashboard__rivers').style.display = 'flex';
+				document.querySelector('.data .atom').style.visibility = 'hidden';
+				document.querySelector('.data .rivers').style.visibility = 'visible';
+				break;
+			case 'population':
+				document.querySelector('.data__dashboard__population').style.display = 'block';
+				document.querySelector('.data__dashboard__rivers').style.display = 'none';
+				document.querySelector('.data .atom').style.visibility = 'visible';
+				document.querySelector('.data .rivers').style.visibility = 'hidden';
+				break;
+			default:
+				document.querySelector('.data__dashboard__population').style.display = 'block';
+				document.querySelector('.data__dashboard__rivers').style.display = 'flex';
+				document.querySelector('.data .atom').style.visibility = 'visible';
+				document.querySelector('.data .rivers').style.visibility = 'visible';
+				break;
+		}
+	}
+	
 	// Update function
 	function update(action, newState, year = 1950) {
-		
 		// update  local state
 		state = {
 			...state,
@@ -47,6 +69,9 @@ const AnimationComponent = (props) => {
 				break;
 			case 'timer-progress':
 				render(year)
+				break;
+			case 'change-data-layer':
+				changeVisibleLayer(year);
 				break;
 			default:
 				return;

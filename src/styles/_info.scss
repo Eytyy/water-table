@@ -11,6 +11,7 @@
   width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.6);
   opacity: 0;
   &.visible {
     opacity: 1;
@@ -18,9 +19,9 @@
 }
 
 .info__text {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-position: 87px 0;
 }
 
 .info__topography  {
-  background-color: #000;
+  background-position: 81px 6px;
 }

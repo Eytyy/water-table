@@ -62,6 +62,12 @@ const Data = (props) => {
 				render(action, state, opts);
 				hide();
 				break;
+			case 'change-data-layer':
+				if (state.activeScreen !== 'dataviz') {
+					return;
+				}
+				render(action, state, opts);
+				break;
 			default:
 				return;
 	}

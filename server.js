@@ -13,6 +13,11 @@ io.on('connection', function(client) {
 	client.on('fromTessel', function(data) {
 		client.broadcast.emit('controller', data);
 	});
+
+	// controller
+	client.on('controller', function(data) {
+		client.broadcast.emit('controller', data);
+	});
 });
 
 const port = process.env.PORT || 3000;

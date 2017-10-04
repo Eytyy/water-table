@@ -45,12 +45,13 @@ let state = { // App State
 let timer; // timer reference variable
 
 const phases = [1960, 1970, 1980, 1990, 2000, 2010]; // Video Time Stops
+const dataLayers = ['all', 'rivers', 'population'];
 
 const initSocketio = () => { // Setup Socket.io
 	// const ip = '10.152.98.106';
 	// const ip = '192.168.1.2';
-	// const ip = '192.168.1.4';
-	const ip = '192.168.1.3';
+	const ip = '192.168.1.7';
+	// const ip = '192.168.1.3';
 	const port = '3000';
 	const socket = io.connect(`http://${ip}:${port}`);
 
@@ -60,7 +61,6 @@ const initSocketio = () => { // Setup Socket.io
 
 	socket.on('controller', function(message) {
 		const { event, payload } = message;
-		console.log('socket', event);
 		switch(event) {
 			case 'start':
 				start();
@@ -71,14 +71,14 @@ const initSocketio = () => { // Setup Socket.io
 			case 'toggle-screen':
 				onToggleScreen();
 				break;
+			case 'change-data-layer':
+				onChangeDataLayer(payload);
+				break;
 			case 'svg-1':
 				onToggleSVG(1);
 				break;
 			case 'svg-2':
 				onToggleSVG(2);
-				break;
-			case 'resize-dashboard':
-				onResize();
 				break;
 			default:
 				return;
@@ -198,6 +198,32 @@ const resumeAfterSeek = () => {
 const onVideoProgress = (time) => {
 	updateState('video-progress', state, time);
 };
+
+let lastLayer = null;
+let prevLayer = null;
+let nextLayer = 0;
+
+const onChangeDataLayer = (position) => {
+	if (lastLayer === position || lastLayer === position - 1 || lastLayer === position + 1) return;
+
+	lastLayer = position;
+	nextLayer = Math.floor(position/3);
+
+	if (nextLayer === prevLayer) return;
+
+	if (state.isIntroActive) {
+		sendInterfaceMessage('wait for intro to finish');
+		return false;
+	} else if (state.isOutroActive) {
+		sendInterfaceMessage('wait for outro to finish.');
+		return false;
+	} else if (state.isIdle) {
+		sendInterfaceMessage('press start.');
+		return false;
+	}
+	
+	updateState('change-data-layer', state, dataLayers[nextLayer]);
+}
 
 const onToggleScreen = () => {
 	if (state.isIdle) {
