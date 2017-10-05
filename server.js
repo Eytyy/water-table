@@ -10,14 +10,15 @@ io.on('connection', function(client) {
 		console.log(data);
 	});
 
-	client.on('fromTessel', function(data) {
-		client.broadcast.emit('controller', data);
-	});
-
 	// controller
 	client.on('controller', function(data) {
 		client.broadcast.emit('controller', data);
 	});
+
+	client.on('from-table', function(data) {
+		client.broadcast.emit('from-table', data);
+	});
+
 });
 
 const port = process.env.PORT || 3000;

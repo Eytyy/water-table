@@ -48,9 +48,8 @@ const phases = [1960, 1970, 1980, 1990, 2000, 2010]; // Video Time Stops
 const dataLayers = ['all', 'rivers', 'population'];
 
 const initSocketio = () => { // Setup Socket.io
-	// const ip = '10.152.98.106';
-	// const ip = '192.168.1.2';
-	const ip = '192.168.1.7';
+	// const ip = '192.168.14.64';
+	const ip = '192.168.1.32';
 	// const ip = '192.168.1.3';
 	const port = '3000';
 	const socket = io.connect(`http://${ip}:${port}`);
@@ -105,10 +104,19 @@ const MessageComponent = Messages();
 
 const sendInterfaceMessage = (msg) => {
 	MessageComponent(msg);
-};
+	updateController('interface-message', {
+		message: msg,
+	});};
 
 const resetInterfaceMessage = () => {
 	MessageComponent('');
+};
+
+const updateController = (event, payload) => {
+	socket.emit('from-table', {
+		event,
+		payload,
+	});
 };
 
 /* End Initial Declarations */
@@ -117,11 +125,16 @@ const resetInterfaceMessage = () => {
 /* Event Hanlders */
 
 const onVideoEnded = () => {
+	updateController('tour-ended', defaultState);
 	updateState('tour-ended', defaultState);
 };
 
 const onVideoStartedPlaying =() => {
 	startIntroCount().then(() => {
+		updateController('intro-ended', {
+			isIntroActive: false,
+			isTableActive: true,
+		});
 		updateState('intro-ended', {
 			isIntroActive: false,
 			isTableActive: true,
@@ -134,6 +147,9 @@ let introCount;
 
 const startIntroCount = () => {
 	clearInterval(introCount);
+	updateController('intro-started', {
+		isIntroActive: true
+	});
 	updateState('intro-started', {
 		isIntroActive: true
 	});
@@ -147,6 +163,15 @@ const startIntroCount = () => {
 
 const triggerOutroState = () => {
 	stopTimer();
+	updateController('outro-started', {
+		isOutroActive: true,
+		isTableActive: false,
+		startYear: 1960,
+		endYear: 2100,
+		currentYear: 1960,
+		isIdle: true,
+		activeIndex: 0,
+	});
 	updateState('outro-started', {
 		isOutroActive: true,
 		isTableActive: false,
@@ -158,18 +183,7 @@ const triggerOutroState = () => {
 	});
 };
 
-let lastSeekPosition = null;
-let prevUpdateValue = null;
-let nextUpdateValue = 0;
-
 const onSeekVideo = (position) => {
-	if (lastSeekPosition === position || lastSeekPosition === position - 1 || lastSeekPosition === position + 1) return;
-
-	lastSeekPosition = position;
-	nextUpdateValue = Math.floor(position/3);
-
-	if (nextUpdateValue === prevUpdateValue) return;
-
 	if (state.isIntroActive) {
 		sendInterfaceMessage('wait for intro to finish');
 		return false;
@@ -181,12 +195,10 @@ const onSeekVideo = (position) => {
 		return false;
 	}
 
-	prevUpdateValue = nextUpdateValue;
-
 	stopTimer();
 	state.activeIndex = 0;
-	state.currentYear = phases[nextUpdateValue];
-	state.activePhase = phases[nextUpdateValue];
+	state.currentYear = phases[position];
+	state.activePhase = phases[position];
 	
 	updateState('seek-video', state, state.currentYear);
 };
@@ -196,6 +208,10 @@ const resumeAfterSeek = () => {
 };
 
 const onVideoProgress = (time) => {
+	updateController('video-progress', {
+		state,
+		time,
+	});
 	updateState('video-progress', state, time);
 };
 
@@ -222,6 +238,10 @@ const onChangeDataLayer = (position) => {
 		return false;
 	}
 	
+	updateController('change-data-layer', {
+		state,
+		nextLayer: dataLayers[nextLayer],
+	});
 	updateState('change-data-layer', state, dataLayers[nextLayer]);
 }
 
@@ -236,13 +256,12 @@ const onToggleScreen = () => {
 		return false;
 	}
 	
+	updateController('toggle-screen', {
+		activeScreen: state.activeScreen === 'video' ? 'dataviz' : 'video',
+	});
 	updateState('toggle-screen', {
 		activeScreen: state.activeScreen === 'video' ? 'dataviz' : 'video',
 	});
-};
-
-const onResize = () => {
-	updateState('resize-dashboard');
 };
 
 const onToggleSVG = (position) => {
@@ -271,6 +290,12 @@ const dynamicUpdates = () => {
 	du++;
 	state.timerSpeed = state.currentYear === 2020 ? 350 : 4000;
 	timer = setInterval(() => {
+		updateController('timer-progress', {
+			startVisualization: true,
+			currentYear: state.currentYear + 1,
+			activeIndex: state.activeIndex + 1,
+		});
+
 		updateState('timer-progress', {
 			startVisualization: true,
 			currentYear: state.currentYear + 1,
@@ -312,6 +337,10 @@ const start = () => {
 		reset();
 		return;
 	}
+	updateController('start', {
+		isIdle: false,
+	});
+
 	updateState('start', {
 		isIdle: false,
 	});
