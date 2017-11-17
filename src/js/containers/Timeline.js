@@ -10,6 +10,7 @@ const Timeline = (props) => {
   };
 
   const stops = [
+    { id: 1, label: 'Early Days', start: 0, end: 40 },
     { id: 2, label: '1960s', start: 40, end: 80 },
     { id: 4, label: '1970s', start: 80, end: 120 },
     { id: 6, label: '1980s', start: 120, end: 160 },
